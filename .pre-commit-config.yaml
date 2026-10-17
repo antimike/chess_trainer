@@ -15,3 +15,12 @@ repos:
       - id: ruff
         args: [--fix]
       - id: ruff-format
+
+  # Block commits that stage secrets (gitleaks on PATH).
+  - repo: local
+    hooks:
+      - id: gitleaks
+        name: gitleaks (staged)
+        entry: gitleaks git --pre-commit --staged --redact --no-banner
+        language: system
+        pass_filenames: false
